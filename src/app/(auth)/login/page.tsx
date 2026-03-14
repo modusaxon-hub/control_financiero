@@ -2,21 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { LogIn, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { signIn } from "@/lib/auth-actions";
 
 export default function LoginPage() {
-    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // TODO: Supabase Auth integration
-        router.push("/dashboard");
-    };
 
     return (
         <div className="w-full" style={{ maxWidth: 420 }}>
@@ -42,7 +33,7 @@ export default function LoginPage() {
                         fontFamily: "var(--font-heading)",
                         fontWeight: 700,
                         fontSize: 28,
-                        color: "var(--color-primary)",
+                        color: "var(--color-info)",
                         marginBottom: 4,
                     }}
                 >
@@ -75,7 +66,7 @@ export default function LoginPage() {
                     Iniciar Sesión
                 </h2>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form action={signIn} className="flex flex-col gap-4">
                     {/* Email */}
                     <div>
                         <label
@@ -101,8 +92,7 @@ export default function LoginPage() {
                             <Mail size={18} style={{ color: "var(--text-secondary)" }} />
                             <input
                                 type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                name="email"
                                 placeholder="tu@email.com"
                                 required
                                 className="flex-1 bg-transparent outline-none"
@@ -140,8 +130,7 @@ export default function LoginPage() {
                             <Lock size={18} style={{ color: "var(--text-secondary)" }} />
                             <input
                                 type={showPassword ? "text" : "password"}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                name="password"
                                 placeholder="••••••••"
                                 required
                                 className="flex-1 bg-transparent outline-none"
@@ -167,7 +156,7 @@ export default function LoginPage() {
                         <Link
                             href="/recuperar"
                             className="text-sm hover:underline"
-                            style={{ color: "var(--color-primary-light)", fontWeight: 500 }}
+                            style={{ color: "var(--color-info)", fontWeight: 500 }}
                         >
                             ¿Olvidaste tu contraseña?
                         </Link>
@@ -183,21 +172,21 @@ export default function LoginPage() {
                 {/* Divider */}
                 <div
                     className="flex items-center gap-3 my-6"
-                    style={{ color: "var(--text-secondary)", fontSize: 12 }}
+                    style={{ color: "var(--text-secondary)", fontSize: 13, fontWeight: 500 }}
                 >
                     <span
                         className="flex-1"
-                        style={{ height: 1, background: "var(--border-color)" }}
+                        style={{ height: 1, background: "var(--border-color)", opacity: 0.6 }}
                     />
-                    o
+                    ó
                     <span
                         className="flex-1"
-                        style={{ height: 1, background: "var(--border-color)" }}
+                        style={{ height: 1, background: "var(--border-color)", opacity: 0.6 }}
                     />
                 </div>
 
                 {/* Google sign-in placeholder */}
-                <Button variant="secondary" fullWidth>
+                <Button variant="secondary" fullWidth style={{ color: "var(--text)", borderColor: "var(--border-color)" }}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                         <path
                             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
@@ -229,7 +218,7 @@ export default function LoginPage() {
                         href="/registro"
                         className="hover:underline"
                         style={{
-                            color: "var(--color-primary)",
+                            color: "var(--color-info)",
                             fontWeight: 600,
                         }}
                     >
