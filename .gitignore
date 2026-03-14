@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# MODUS AXON - User specific rules
+*.md
+.gitignore
+.env
+.env.local
+.env.*
+.DS_Store
+Thumbs.db
+.cursor/
+.agents/
+.agent/
+_agent/
+_agents/
