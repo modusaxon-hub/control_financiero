@@ -71,31 +71,16 @@ export async function signInWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: `${appUrl}/auth/callback`,
+            redirectTo: `${appUrl}/api/auth/callback`,
         },
     });
 
-    if (error || !data.url) {
-        redirect('/login?error=Google sign-in failed');
+    if (error) {
+        console.error("Error en OAuth Google:", error.message);
+        redirect(`/login?error=${encodeURIComponent(error.message)}`);
     }
 
-    redirect(data.url);
-}
-
-export async function signUpWithGoogle() {
-    const supabase = await createClient();
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-
-    const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-            redirectTo: `${appUrl}/auth/callback`,
-        },
-    });
-
-    if (error || !data.url) {
-        redirect('/registro?error=Google sign-up failed');
+    if (data.url) {
+        redirect(data.url);
     }
-
-    redirect(data.url);
 }

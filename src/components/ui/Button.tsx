@@ -1,4 +1,4 @@
-import { type ReactNode, type ButtonHTMLAttributes } from "react";
+import { type ReactNode, type ButtonHTMLAttributes, type CSSProperties } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "success" | "danger" | "ghost";
 
@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     fullWidth?: boolean;
 }
 
-const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
+const variantStyles: Record<ButtonVariant, CSSProperties> = {
     primary: {
         background: "var(--color-primary)",
         color: "#FFFFFF",
@@ -41,6 +41,7 @@ export default function Button({
     children,
     fullWidth = false,
     className = "",
+    style,
     ...props
 }: ButtonProps) {
     return (
@@ -58,9 +59,11 @@ export default function Button({
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "var(--space-2)",
+                whiteSpace: "nowrap",
                 width: fullWidth ? "100%" : "auto",
                 opacity: props.disabled ? 0.5 : 1,
                 ...variantStyles[variant],
+                ...style as CSSProperties,
             }}
             {...props}
         >

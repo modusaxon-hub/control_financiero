@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { UserPlus, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { signUp } from "@/lib/auth-actions";
+import { signUp, signInWithGoogle } from "@/lib/auth-actions";
 
 export default function RegistroPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -174,7 +174,13 @@ export default function RegistroPage() {
                 </div>
 
                 {/* Google sign-in placeholder */}
-                <Button variant="secondary" fullWidth style={{ color: "var(--text)", borderColor: "var(--border-color)" }}>
+                <Button
+                    type="button"
+                    variant="secondary"
+                    fullWidth
+                    onClick={() => signInWithGoogle()}
+                    style={{ color: "var(--text)", borderColor: "var(--border-color)" }}
+                >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                         <path
                             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
