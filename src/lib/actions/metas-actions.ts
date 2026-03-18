@@ -165,7 +165,7 @@ export async function listarMetas() {
 /**
  * Calcular aporte mensual requerido para alcanzar la meta
  */
-export function calcularAporteMensual(
+function calcularAporteMensual(
   monto_objetivo: number,
   progreso_actual: number,
   fecha_limite: Date

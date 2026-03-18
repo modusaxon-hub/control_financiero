@@ -1,9 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import { Users, UserPlus } from "lucide-react";
 import Button from "@/components/ui/Button";
+import CreateInviteModal from "@/components/modals/CreateInviteModal";
 
 export default function FamiliaPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div>
+            <CreateInviteModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSuccess={() => {
+                    // TODO: Refetch miembros list
+                }}
+            />
+
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700 }}>
@@ -13,7 +27,7 @@ export default function FamiliaPage() {
                         Miembros del hogar, roles y aportes
                     </p>
                 </div>
-                <Button>
+                <Button onClick={() => setIsModalOpen(true)}>
                     <UserPlus size={18} />
                     Invitar
                 </Button>

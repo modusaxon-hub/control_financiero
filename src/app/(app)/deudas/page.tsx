@@ -1,9 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import { TrendingDown, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
+import CreateCreditoModal from "@/components/modals/CreateCreditoModal";
 
 export default function DeudasPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div>
+            <CreateCreditoModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSuccess={() => {
+                    // TODO: Refetch creditos list
+                }}
+            />
+
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700 }}>
@@ -13,7 +27,7 @@ export default function DeudasPage() {
                         Créditos activos y estrategia de salida
                     </p>
                 </div>
-                <Button variant="danger">
+                <Button variant="danger" onClick={() => setIsModalOpen(true)}>
                     <Plus size={18} />
                     Nuevo crédito
                 </Button>

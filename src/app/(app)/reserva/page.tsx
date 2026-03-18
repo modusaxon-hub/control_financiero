@@ -1,9 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import { PiggyBank, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
+import CreateMetaModal from "@/components/modals/CreateMetaModal";
 
 export default function ReservaPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div>
+            <CreateMetaModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSuccess={() => {
+                    // TODO: Refetch metas list
+                }}
+            />
+
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700 }}>
@@ -13,7 +27,7 @@ export default function ReservaPage() {
                         Metas de ahorro individuales y compartidas
                     </p>
                 </div>
-                <Button variant="success">
+                <Button variant="success" onClick={() => setIsModalOpen(true)}>
                     <Plus size={18} />
                     Nueva meta
                 </Button>

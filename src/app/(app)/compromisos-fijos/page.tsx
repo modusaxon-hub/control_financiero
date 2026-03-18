@@ -1,9 +1,24 @@
+"use client";
+
+import { useState } from "react";
 import { CalendarClock, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
+import CreateGastoModal from "@/components/modals/CreateGastoModal";
 
 export default function CompromisosFijosPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div>
+            <CreateGastoModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                tipoGasto="recurrente"
+                onSuccess={() => {
+                    // TODO: Refetch gastos list
+                }}
+            />
+
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700 }}>
@@ -13,7 +28,7 @@ export default function CompromisosFijosPage() {
                         Gastos recurrentes y cuotas de crédito
                     </p>
                 </div>
-                <Button>
+                <Button onClick={() => setIsModalOpen(true)}>
                     <Plus size={18} />
                     Nuevo
                 </Button>

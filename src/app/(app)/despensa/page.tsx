@@ -14,12 +14,22 @@ import {
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import CreateShoppingListModal from "@/components/modals/CreateShoppingListModal";
 
 export default function DespensaPage() {
     const [activeTab, setActiveTab] = useState<"listas" | "analisis">("listas");
+    const [isShoppingListModalOpen, setIsShoppingListModalOpen] = useState(false);
 
     return (
         <div className="pb-20">
+            <CreateShoppingListModal
+                isOpen={isShoppingListModalOpen}
+                onClose={() => setIsShoppingListModalOpen(false)}
+                onSuccess={() => {
+                    // TODO: Refetch shopping lists
+                }}
+            />
+
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
                     <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700 }}>
@@ -30,11 +40,18 @@ export default function DespensaPage() {
                     </p>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="secondary" className="flex-1 md:flex-none">
+                    <Button
+                        variant="secondary"
+                        className="flex-1 md:flex-none"
+                        onClick={() => alert("🔄 OCR Escanear: Esta funcionalidad será implementada en Phase 2 (detección de facturas)")}
+                    >
                         <Camera size={18} />
                         <span className="hidden sm:inline">Escanear</span>
                     </Button>
-                    <Button className="flex-1 md:flex-none">
+                    <Button
+                        className="flex-1 md:flex-none"
+                        onClick={() => setIsShoppingListModalOpen(true)}
+                    >
                         <Plus size={18} />
                         Nueva Lista
                     </Button>
@@ -54,7 +71,11 @@ export default function DespensaPage() {
                         <p className="text-amber-800/80 dark:text-amber-200/70 text-sm mb-3">
                             Puedes establecer un presupuesto cerrado para compras en efectivo. La IA te ayudará a cuadrar los productos según precios históricos.
                         </p>
-                        <Button variant="ghost" className="text-amber-700 dark:text-amber-300 p-0 h-auto font-bold hover:bg-transparent">
+                        <Button
+                            variant="ghost"
+                            className="text-amber-700 dark:text-amber-300 p-0 h-auto font-bold hover:bg-transparent"
+                            onClick={() => alert("💰 Presupuesto Plaza: Funcionalidad en desarrollo para establecer límites de gasto en compras en efectivo")}
+                        >
                             Establecer presupuesto <ArrowRight size={16} className="ml-1" />
                         </Button>
                     </div>
@@ -110,7 +131,13 @@ export default function DespensaPage() {
                             <p className="text-sm text-text-secondary">
                                 Marca tus tiendas favoritas para que el **AI Scrapper** pueda comparar precios y sugerirte dónde comprar hoy.
                             </p>
-                            <Button variant="secondary" className="mt-4">Configurar Tiendas</Button>
+                            <Button
+                                variant="secondary"
+                                className="mt-4"
+                                onClick={() => alert("🏪 Configurar Tiendas: Marca tus tiendas favoritas para que el AI Scrapper compare precios (Phase 2)")}
+                            >
+                                Configurar Tiendas
+                            </Button>
                         </Card>
                     )}
 
@@ -134,7 +161,10 @@ export default function DespensaPage() {
                             <p className="text-white/70 text-xs mb-4">
                                 Sube una foto o PDF de tu factura. La IA extraerá productos, precios y comercios automáticamente.
                             </p>
-                            <Button className="w-full bg-white text-color-primary hover:bg-white/90">
+                            <Button
+                                className="w-full bg-white text-color-primary hover:bg-white/90"
+                                onClick={() => alert("📄 Procesar Factura: Carga una foto o PDF. La IA extraerá productos y precios automáticamente (Phase 2)")}
+                            >
                                 Seleccionar Archivo
                             </Button>
                         </div>
@@ -157,7 +187,13 @@ export default function DespensaPage() {
                             </p>
                             <div className="pt-2 border-t border-border-color mt-4 flex items-center justify-between">
                                 <span className="text-xs font-semibold">Ciclo: Quincenal</span>
-                                <Button variant="ghost" className="h-auto p-0 text-[10px] underline">Cambiar</Button>
+                                <Button
+                                    variant="ghost"
+                                    className="h-auto p-0 text-[10px] underline"
+                                    onClick={() => alert("📅 Cambiar Ciclo: Puedes cambiar entre ciclos semanales, quincenales y mensuales")}
+                                >
+                                    Cambiar
+                                </Button>
                             </div>
                         </div>
                     </Card>

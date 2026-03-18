@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
 export async function signIn(formData: FormData) {
     const email = formData.get('email') as string;
@@ -49,7 +50,6 @@ export async function signUp(formData: FormData) {
     console.log("Usuario registrado con éxito:", data.user?.id);
 
     if (data.user) {
-        // Log para ver si el usuario fue creado correctamente
         console.log("Redirigiendo a onboarding...");
     }
 
@@ -66,12 +66,17 @@ export async function signOut() {
 
 export async function signInWithGoogle() {
     const supabase = await createClient();
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const headersList = await headers();
+    const host = headersList.get('host');
+    const protocol = host?.includes('localhost') ? 'http' : 'https';
+    const origin = `${protocol}://${host}`;
+
+    console.log("Detectado Origin para Google Auth:", origin);
 
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: `${appUrl}/api/auth/callback`,
+            redirectTo: `${origin}/api/auth/callback`,
         },
     });
 
